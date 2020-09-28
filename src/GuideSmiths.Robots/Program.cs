@@ -17,9 +17,8 @@ namespace GuideSmiths.Robots
         }
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
             var exit = "";
-           
-            //Coordinates cursorPosition = new Coordinates();   
 
             while (exit != "e")
             {

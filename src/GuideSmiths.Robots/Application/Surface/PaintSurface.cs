@@ -9,20 +9,36 @@ namespace GuideSmiths.Robots.Application.Surface
         public static void Paint()
         {
             List<Coordinates> cursorPositionList = new List<Coordinates>();
+            Orientation orientation = new Orientation();
             Console.CursorVisible = false;
+            int robotx = 0;
+            int roboty = 0;
+             
+
 
             SurfaceBase SurfaceDimensions = new SurfaceBase();
 
             Console.WriteLine("Enter a value for the X");
             SurfaceDimensions.MaximunXAxis = Convert.ToInt32(Console.ReadLine());
 
-
             Console.WriteLine("Enter a value for the Y");
             SurfaceDimensions.MaximunYAxis = Convert.ToInt32(Console.ReadLine());
 
+            Console.WriteLine("Enter the initial coordinates of the robot and It´s orientation N, S, E, W");
+            Console.WriteLine("X: ");
+            robotx = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Y: ");
+            roboty = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Orientation: ");
+            var robotOrientation = Console.ReadLine();
+            Console.WriteLine("Give the instructions for the Robot (L/R/F): ");
+            var robotPath = Console.ReadLine();
 
-            Console.WriteLine($"eje X: {SurfaceDimensions.MaximunXAxis}  eje Y: {SurfaceDimensions.MaximunYAxis}");
-            Console.WriteLine($"eje X: {SurfaceDimensions.MinimumXAxis}  eje Y: {SurfaceDimensions.MinimumYAxis}");
+
+
+
+            //Console.WriteLine($"eje X: {SurfaceDimensions.MaximunXAxis}  eje Y: {SurfaceDimensions.MaximunYAxis}");
+            //Console.WriteLine($"eje X: {SurfaceDimensions.MinimumXAxis}  eje Y: {SurfaceDimensions.MinimumYAxis}");
 
             var surfaceUp = "╔";
             var space = "";
@@ -66,51 +82,15 @@ namespace GuideSmiths.Robots.Application.Surface
                 YPosition = Console.CursorTop
             });
 
-            var nave = "Q";
-            var xpos = -1;
-            for (int i = cursorPositionList[0].XPosition + 1; i < cursorPositionList[1].XPosition - 1; i++)
-            {
-                xpos++;
-                //if (i != cursorPositionList[0].XPosition + 1)
-                //{
-                //    //Delete the previous char by setting it to a space
+            //PaintCoordinatesNumbers.PaintNumbers(cursorPositionList);
+            int xLeft = cursorPositionList[0].XPosition + 1;
+            int yUp = cursorPositionList[0].YPosition + SurfaceDimensions.MaximunYAxis;
+            Console.SetCursorPosition(xLeft + robotx ,yUp - roboty);
+            Console.ForegroundColor = ConsoleColor.Red;
 
-                //    Console.SetCursorPosition(i - 1, cursorPositionList[0].YPosition + 1);
-
-                //    Console.Write(" ");
-                //}
-
-                // Write the new char
-                Console.CursorVisible = false;
-                //Console.SetCursorPosition(20, 9);
-                Console.SetCursorPosition(i, cursorPositionList[1].YPosition - 1);
-                Console.Write(xpos);
-
-                System.Threading.Thread.Sleep(200);
-            }
-
-            var ypos = -1;
-            //for (int i = cursorPositionList[0].YPosition + 1; i < cursorPositionList[1].YPosition ; i++)
-                for (int i = cursorPositionList[1].YPosition - 1; i > cursorPositionList[0].YPosition ; i--)
-                {
-                ypos++;
-                //if (i != cursorPositionList[1].YPosition - 1)
-                //{
-                //    //Delete the previous char by setting it to a space
-
-                //    Console.SetCursorPosition(cursorPositionList[1].XPosition - 2, i + 1);
-
-                //    Console.Write(" ");
-                //}
-
-                // Write the new char
-                Console.CursorVisible = false;
-                //Console.SetCursorPosition(20, 9);
-                Console.SetCursorPosition(cursorPositionList[0].XPosition + 1, i);
-                Console.Write(ypos);
-
-                System.Threading.Thread.Sleep(200);
-            }
+            var symbol = orientation.CalculateOrientation(robotPath, robotOrientation);
+            Console.Write(symbol);
+            Console.ResetColor();
 
 
 
