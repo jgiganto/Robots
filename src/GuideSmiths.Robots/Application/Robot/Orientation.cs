@@ -27,16 +27,16 @@ namespace GuideSmiths.Robots.Application.Robot
             return "Err";           
         }
 
-        public string CalculateOrientation(string command, string actualOrientation)
+        public (string symbol,string orientation) GetSymbolAndOrientation(char instruction, string actualOrientation)
         {
             string[] positions = new string[] { "N", "E", "S", "W" };
 
             int indexPosition = Array.IndexOf(positions, actualOrientation);
 
 
-            switch (command)
+            switch (instruction)
             {
-                case "L":
+                case 'L':
                      if(indexPosition == 0)
                      {
                         indexPosition = 3;
@@ -44,7 +44,7 @@ namespace GuideSmiths.Robots.Application.Robot
                      }
                      indexPosition -= 1;
                     break;
-                case "F":
+                case 'R':
                     if (indexPosition == 3)
                     {
                         indexPosition = 0;
@@ -54,8 +54,8 @@ namespace GuideSmiths.Robots.Application.Robot
                     break;                    
             }
 
-            return GetOrientationSymbol(positions[indexPosition]);
-
+            return (GetOrientationSymbol(positions[indexPosition]), positions[indexPosition]);
         }
+
     }
 }
