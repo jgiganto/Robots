@@ -15,6 +15,7 @@ namespace GuideSmiths.Robots.Application.Surface
 
         Coordinates initialRobotPosition;
         Coordinates robotPositionInMarthSurface;
+        Coordinates previousRobotPositionInMarthSurface;
         Coordinates previousRobotPosition;
         Coordinates actualPosition;
         Coordinates newCoordinates;
@@ -32,6 +33,7 @@ namespace GuideSmiths.Robots.Application.Surface
        
             initialRobotPosition = new Coordinates();
             robotPositionInMarthSurface = new Coordinates();
+            previousRobotPositionInMarthSurface = new Coordinates();
             previousRobotPosition = new Coordinates();
             actualPosition = new Coordinates();
             newCoordinates = new Coordinates();
@@ -121,8 +123,8 @@ namespace GuideSmiths.Robots.Application.Surface
            
 
             foreach (char command in robotInitial.instructions)
-            {              
-                
+            {
+                previousRobotPositionInMarthSurface = robotPositionInMarthSurface;
                 switch (command)
                 {
                     case 'L':
@@ -146,6 +148,7 @@ namespace GuideSmiths.Robots.Application.Surface
                     case 'F':
 
                         previousRobotPosition = (new Coordinates { XPosition = actualPosition.XPosition, YPosition = actualPosition.YPosition });
+                        
                         currentOrientation = initialRobotPosition.Orientation;
                         nextPosition = motionFactory.MoveRobotByOrientation(currentOrientation);
                         newCoordinates = nextPosition.GetNewCoordinates(initialRobotPosition, robotPositionInMarthSurface, initialRobotPosition.Orientation);
@@ -160,42 +163,42 @@ namespace GuideSmiths.Robots.Application.Surface
                 foreach (var poisonUbication in poisonCoordinates)
                 {
                     if ((robotPositionInMarthSurface.XPosition == poisonUbication.XPosition &&
-                        robotPositionInMarthSurface.YPosition == poisonUbication.YPosition) //||
-                        //(robotPositionInMarthSurface.XPosition == poisonUbication.XPosition &&
-                        //robotPositionInMarthSurface.YPosition - 1 == poisonUbication.YPosition) ||
-                        //(robotPositionInMarthSurface.XPosition + 1 == poisonUbication.XPosition &&
-                        //robotPositionInMarthSurface.YPosition == poisonUbication.YPosition) ||
-                        // (robotPositionInMarthSurface.XPosition - 1 == poisonUbication.XPosition &&
-                        //robotPositionInMarthSurface.YPosition == poisonUbication.YPosition)
-                    )
+                        robotPositionInMarthSurface.YPosition == poisonUbication.YPosition)  
+                        )
                     {
                         stopTheRobot = true;
                         Console.SetCursorPosition(5, 20);
                         Console.WriteLine($"Poisoned UBICATION!!:");
-                        Console.WriteLine($"--------");
-                        Console.WriteLine($"X: {poisonUbication.XPosition}, Y: {poisonUbication.YPosition} ");
-                        Thread.Sleep(3000);
-                        Console.WriteLine($"Last robot Ubication and Orientation");
-                        Console.WriteLine($"--------");
-                        Console.WriteLine($"X: {robotPositionInMarthSurface.XPosition}, Y: {robotPositionInMarthSurface.YPosition}, Orientation: {currentOrientation}  ");
+                        //Console.WriteLine($"--------");
+                        //Console.WriteLine($"X: {poisonUbication.XPosition}, Y: {poisonUbication.YPosition} ");
+                        //Thread.Sleep(3000);
+                        //Console.WriteLine($"Last robot Ubication and Orientation");
+                        //Console.WriteLine($"--------");
+                        //Console.WriteLine($"X: {robotPositionInMarthSurface.XPosition}," +
+                        //$" Y: {robotPositionInMarthSurface.YPosition}, Orientation: {currentOrientation}");
                         Thread.Sleep(3000);
                         break;
                     }
                 }
-
-                if ((robotPositionInMarthSurface.XPosition >= SurfaceDimensions.MaximunXAxis ||
-                 robotPositionInMarthSurface.YPosition >= SurfaceDimensions.MaximunYAxis ||
+                 
+                if ((robotPositionInMarthSurface.XPosition > SurfaceDimensions.MaximunXAxis ||
+                 robotPositionInMarthSurface.YPosition > SurfaceDimensions.MaximunYAxis ||
                  robotPositionInMarthSurface.XPosition < SurfaceDimensions.MinimumXAxis ||
                  robotPositionInMarthSurface.YPosition < SurfaceDimensions.MinimumYAxis) && (stopTheRobot == false)
                  )
-                {                    
+                {
+                    stopTheRobot = true;
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("X");
-
+                    Console.ResetColor();
                     poisonCoordinates.Add(robotPositionInMarthSurface);
 
                     Console.SetCursorPosition(previousRobotPosition.XPosition, previousRobotPosition.YPosition);
                     Console.Write(" ");
+
+                    Console.SetCursorPosition(5, 20);
+                    Console.WriteLine($"X: {previousRobotPositionInMarthSurface.XPosition}," +
+                      $" Y: {previousRobotPositionInMarthSurface.YPosition}, Orientation: {robotState.orientation} LOST !");
                     Thread.Sleep(1000);
                     break;
                 }                
@@ -220,6 +223,15 @@ namespace GuideSmiths.Robots.Application.Surface
                 }
                  
             }
+            if (stopTheRobot == false)
+            {
+                Console.SetCursorPosition(5, 20);
+                Console.WriteLine($"X: {robotPositionInMarthSurface.XPosition}," +
+                                  $" Y: {robotPositionInMarthSurface.YPosition}, Orientation: {robotState.orientation} ");
+                Thread.Sleep(3000);
+            }
+                
+
             Console.ResetColor();
         }
         
