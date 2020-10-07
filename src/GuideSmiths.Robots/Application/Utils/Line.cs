@@ -17,6 +17,6 @@ namespace GuideSmiths.Robots.Application.Utils
         public static void BlankLine()
         {           
             Console.WriteLine(new string(' ', Console.WindowWidth));             
-        }
+        }      
     }
 }

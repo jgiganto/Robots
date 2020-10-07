@@ -7,7 +7,7 @@ namespace GuideSmiths.Robots.Application.Robot.Services
         public override Coordinates GetNewCoordinates(Coordinates nextRobotPosition, Coordinates coordinatesInMarthSurface, string orientation)
         {
             nextRobotPosition.YPosition -= 1;
-            coordinatesInMarthSurface.YPosition += 1;
+            coordinatesInMarthSurface.YPosition += 1;          
             return nextRobotPosition;
         }
     }

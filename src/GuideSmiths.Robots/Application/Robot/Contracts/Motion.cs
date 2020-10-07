@@ -16,10 +16,10 @@ namespace GuideSmiths.Robots.Application.Robot.Contracts
             public MotionValidator()
             {
                 RuleFor(i => i.Instructions)
-               .NotEmpty()
-               .NotNull()
-               .MaximumLength(10)
-               .WithMessage("10 instructions Max");
+                .NotEmpty()
+                .NotNull()
+                .Matches("^[\\s\\dLRF]{1,100}$")
+                .WithMessage(i => $"Instructions Error!,{i.Instructions} not valid Instruction.Max 100.");               
             }
         }
 

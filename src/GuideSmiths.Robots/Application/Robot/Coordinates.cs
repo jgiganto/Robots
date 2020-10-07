@@ -28,7 +28,6 @@ namespace GuideSmiths.Robots.Application.Robot
              .NotNull()
              .Matches("^(N|S|E|W)?$")
              .WithMessage(c => $"Orientation Error!,{c.Orientation} not valid orientation");
-
         }
     }
 }

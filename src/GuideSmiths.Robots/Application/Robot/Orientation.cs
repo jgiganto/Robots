@@ -9,7 +9,7 @@ namespace GuideSmiths.Robots.Application.Robot
         public string robotW = "◄";
         public string robotS = "▼";
 
-        private string GetOrientationSymbol(string orientation)
+        public string GetOrientationSymbol(string orientation)
         {
             switch (orientation)
             {

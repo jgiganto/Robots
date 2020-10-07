@@ -18,6 +18,7 @@ namespace GuideSmiths.Robots.Application.Robot.Factory
         }
 
         public MoveRobotForward MoveRobotByOrientation(string orientation)
+        
         {
             return _motionMapper[orientation]();
         }

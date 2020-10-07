@@ -1,8 +1,10 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using GuideSmiths.Robots.Application.Robot;
 using GuideSmiths.Robots.Application.Robot.Contracts;
 using GuideSmiths.Robots.Application.Utils;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using static GuideSmiths.Robots.Application.Robot.Contracts.Motion;
@@ -36,11 +38,13 @@ namespace GuideSmiths.Robots.Application.Surface
             Console.WriteLine("Now, initial coordinates of the robot and It´s orientation (N, S, E, W): ");
             Line.BlankLine();
 
-
+            int left = Console.CursorLeft;
+            int top = Console.CursorTop;
             while (true)
             {
-                int left = Console.CursorLeft;
-                int top = Console.CursorTop;
+                left = Console.CursorLeft;
+                top = Console.CursorTop;
+
                 try
                 {
                     Line.BlankLine();
@@ -50,50 +54,96 @@ namespace GuideSmiths.Robots.Application.Surface
                     Console.Write("Enter the Y: ");
                     robotPositionInMarthSurface.YPosition = Convert.ToInt32(Console.ReadLine());
                     Line.Clean();
-                    Console.Write("Enter the Orientation of Robot(N, S, E, W): ");
-                    initialRobotPosition.Orientation = Console.ReadLine().ToUpper();
-
-                    coordinatesValidator.Validate(initialRobotPosition, options => options.IncludeProperties("Orientation"));
-
-
-                    Line.Clean();
-
-                    if (!coordinatesValidator.Validate(initialRobotPosition).IsValid)
-                    {                         
-                        var errors = coordinatesValidator.Validate(robotPositionInMarthSurface).Errors;
-                        foreach (var error in errors)
-                        {
-                            Console.WriteLine($"Error! : {error} ");
-                            Thread.Sleep(2000);
-                            throw new Exception();
-                        }
-                    }
-                   
-
+                    break;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Write numbers! error");
                     Thread.Sleep(1000);
                     Line.Clean();
+                    Line.Clean();
+                    Console.SetCursorPosition(left, top);
+                   
+                }               
+            }
+
+            while (true)
+            {
+                left = Console.CursorLeft;
+                top = Console.CursorTop;
+                try
+                {
+                    Console.Write("Enter the Orientation of Robot(N, S, E, W): ");
+                    initialRobotPosition.Orientation = Console.ReadLine().ToUpper();
+                    Line.Clean();
+                    Console.SetCursorPosition(left, top);
+
+                    IList<ValidationFailure> orientationErrors =
+                        coordinatesValidator.Validate(initialRobotPosition, options => options.IncludeProperties("Orientation")).Errors;
+                    if (orientationErrors.Any())
+                    {
+                        foreach (var error in orientationErrors)
+                        {
+                            Console.WriteLine($"Error!: {error}");
+                            Thread.Sleep(2000);
+                            Line.Clean();
+                            Line.Clean();
+                            Console.SetCursorPosition(left, top);
+                        }
+                        throw new Exception("Please (N, S, E, W):");
+                    }
+                    break;
+                }
+
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"{ex.Message}");
+                    Thread.Sleep(1000);
+                    Line.Clean();
+                    Line.Clean();
                     Console.SetCursorPosition(left, top);
                 }
-                break;
             }
 
+            while (true)
+            {
+                left = Console.CursorLeft;
+                top = Console.CursorTop;
 
-            Console.Write("Give the instructions for the Robot (L/R/F): ");
-            commands.Instructions = Console.ReadLine().ToUpper();
-
-            if (!motionValidator.Validate(commands).IsValid) {
-                var errors = motionValidator.Validate(commands).Errors;
-                foreach (var error in errors)
+                try
                 {
-                    Console.WriteLine($"Error!: {error} ");
-                    Thread.Sleep(1000);                    
-                }     
-            }
+                    Console.Write("Give the instructions for the Robot (L/R/F): ");                  
+                    commands.Instructions = Console.ReadLine().ToUpper();
+                    Line.Clean();
+                    Console.SetCursorPosition(left, top);
 
+                    IList<ValidationFailure> motionErrors =
+                        motionValidator.Validate(commands).Errors;
+
+                    if (motionErrors.Any())
+                    {
+                        foreach (var error in motionErrors)
+                        {
+                            Console.WriteLine($"Error!: {error} ");
+                            Thread.Sleep(2000);
+                            Line.Clean();
+                            Line.Clean();
+                            Console.SetCursorPosition(left, top);
+                        }
+                        throw new Exception("Please (L/R/F):");
+                    }
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"{ex.Message}");
+                    Thread.Sleep(1000);
+                    Line.Clean();
+                    Line.Clean();
+                    Console.SetCursorPosition(left, top);
+                } 
+            }
+                
 
             Thread.Sleep(10);
             Console.CursorVisible = false;
