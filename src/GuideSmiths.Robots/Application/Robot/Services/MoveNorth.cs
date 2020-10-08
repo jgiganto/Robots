@@ -4,11 +4,21 @@ namespace GuideSmiths.Robots.Application.Robot.Services
 {
     public class MoveNorth : MoveRobotForward
     {
-        public override Coordinates GetNewCoordinates(Coordinates nextRobotPosition, Coordinates coordinatesInMarthSurface, string orientation)
+        public override (Coordinates nextRobotPosition, bool isLost) GetNewCoordinates(Coordinates nextRobotPosition, Coordinates coordinatesInMarthSurface, int northLimits)
         {
-            nextRobotPosition.YPosition -= 1;
-            coordinatesInMarthSurface.YPosition += 1;          
-            return nextRobotPosition;
+            bool isLost = false;
+            if(coordinatesInMarthSurface.YPosition + 1 <= northLimits)
+            {
+                nextRobotPosition.YPosition -= 1;
+                coordinatesInMarthSurface.YPosition += 1;
+            }
+            else
+            {
+                isLost = true;
+                return (nextRobotPosition, isLost);
+            }
+
+            return (nextRobotPosition, isLost); 
         }
     }
 }

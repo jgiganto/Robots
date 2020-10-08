@@ -151,7 +151,35 @@ namespace GuideSmiths.Robots.Application.Surface
                         
                         currentOrientation = initialRobotPosition.Orientation;
                         nextPosition = motionFactory.MoveRobotByOrientation(currentOrientation);
-                        newCoordinates = nextPosition.GetNewCoordinates(initialRobotPosition, robotPositionInMarthSurface, initialRobotPosition.Orientation);
+
+
+                        if(currentOrientation == "N")
+                        {
+                            var manageRobot = nextPosition.GetNewCoordinates(initialRobotPosition, robotPositionInMarthSurface, SurfaceDimensions.MaximunYAxis);
+                            newCoordinates = manageRobot.nextRobotPosition;
+                            stopTheRobot = manageRobot.isLost;
+                        }
+                        if (currentOrientation == "E")
+                        {
+                            var manageRobot = nextPosition.GetNewCoordinates(initialRobotPosition, robotPositionInMarthSurface, SurfaceDimensions.MaximunXAxis);
+                            newCoordinates = manageRobot.nextRobotPosition;
+                            stopTheRobot = manageRobot.isLost;
+                        }
+
+                        if (currentOrientation == "W")
+                        {
+                            var manageRobot = nextPosition.GetNewCoordinates(initialRobotPosition, robotPositionInMarthSurface, SurfaceDimensions.MinimumXAxis);
+                            newCoordinates = manageRobot.nextRobotPosition;
+                            stopTheRobot = manageRobot.isLost;
+                        }
+
+                        if (currentOrientation == "S")
+                        {
+                            var manageRobot = nextPosition.GetNewCoordinates(initialRobotPosition, robotPositionInMarthSurface, SurfaceDimensions.MinimumYAxis);
+                            newCoordinates = manageRobot.nextRobotPosition;
+                            stopTheRobot = manageRobot.isLost;
+                        }
+
                         actualPosition = newCoordinates;
 
                         break;

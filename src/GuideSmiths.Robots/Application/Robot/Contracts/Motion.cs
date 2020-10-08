@@ -6,7 +6,7 @@ namespace GuideSmiths.Robots.Application.Robot.Contracts
     {
         public abstract class MoveRobotForward
         {
-            public abstract Coordinates GetNewCoordinates(Coordinates nextRobotPosition, Coordinates coordinatesInMarthSurface, string orientation);
+            public abstract (Coordinates nextRobotPosition, bool isLost) GetNewCoordinates(Coordinates nextRobotPosition, Coordinates coordinatesInMarthSurface, int limits);
         } 
 
         public string Instructions { get; set; }
