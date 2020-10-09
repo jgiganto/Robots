@@ -37,8 +37,8 @@ namespace GuideSmiths.Robots
             {
                 paintSurface.Paint(surfaceDimensions, poisonCoordinates);
 
-                Console.SetCursorPosition(0, 0);                
-                Console.WriteLine("Escriba 'E' para salir:");
+                Console.SetCursorPosition(5, 24);
+                Console.WriteLine("Enter to continue. For Exit type `E`:");
                 exit = Console.ReadLine().ToString().ToUpper();
                 Console.Clear();
             }

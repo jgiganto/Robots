@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using System.Collections.Generic;
 
 namespace GuideSmiths.Robots.Application.Robot.Contracts
 {
@@ -6,7 +7,8 @@ namespace GuideSmiths.Robots.Application.Robot.Contracts
     {
         public abstract class MoveRobotForward
         {
-            public abstract Coordinates GetNewCoordinates(Coordinates nextRobotPosition, Coordinates coordinatesInMarthSurface, string orientation);
+            public abstract (Coordinates nextRobotPosition, bool isLost, List<Coordinates> getPoisonCoordinates)
+                GetNewCoordinates(Coordinates nextRobotPosition, Coordinates coordinatesInMarthSurface, int limits, List<Coordinates> posisonCoordinates);
         } 
 
         public string Instructions { get; set; }
