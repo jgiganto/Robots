@@ -115,7 +115,7 @@ namespace GuideSmiths.Robots.Application.Surface
             var robotInitialPhoto = orientation.GetOrientationSymbol(initialRobotPosition.Orientation);
         
             Console.Write(robotInitialPhoto);
-            Thread.Sleep(1000);
+            Thread.Sleep(300);
     
             Console.SetCursorPosition(initialRobotPosition.XPosition, initialRobotPosition.YPosition);
             Console.Write(" ");
@@ -155,31 +155,39 @@ namespace GuideSmiths.Robots.Application.Surface
 
                         if(currentOrientation == "N")
                         {
-                            var manageRobot = nextPosition.GetNewCoordinates(initialRobotPosition, robotPositionInMarthSurface, SurfaceDimensions.MaximunYAxis);
+                            var manageRobot =
+                                nextPosition.GetNewCoordinates(initialRobotPosition, robotPositionInMarthSurface, SurfaceDimensions.MaximunYAxis, poisonCoordinates);
                             newCoordinates = manageRobot.nextRobotPosition;
                             stopTheRobot = manageRobot.isLost;
+                            poisonCoordinates = manageRobot.getPoisonCoordinates;
                         }
                         if (currentOrientation == "E")
                         {
-                            var manageRobot = nextPosition.GetNewCoordinates(initialRobotPosition, robotPositionInMarthSurface, SurfaceDimensions.MaximunXAxis);
+                            var manageRobot =
+                                nextPosition.GetNewCoordinates(initialRobotPosition, robotPositionInMarthSurface, SurfaceDimensions.MaximunXAxis, poisonCoordinates);
                             newCoordinates = manageRobot.nextRobotPosition;
                             stopTheRobot = manageRobot.isLost;
+                            poisonCoordinates = manageRobot.getPoisonCoordinates;
                         }
 
                         if (currentOrientation == "W")
                         {
-                            var manageRobot = nextPosition.GetNewCoordinates(initialRobotPosition, robotPositionInMarthSurface, SurfaceDimensions.MinimumXAxis);
+                            var manageRobot =
+                                nextPosition.GetNewCoordinates(initialRobotPosition, robotPositionInMarthSurface, SurfaceDimensions.MinimumXAxis, poisonCoordinates);
                             newCoordinates = manageRobot.nextRobotPosition;
                             stopTheRobot = manageRobot.isLost;
+                            poisonCoordinates = manageRobot.getPoisonCoordinates;
                         }
 
                         if (currentOrientation == "S")
                         {
-                            var manageRobot = nextPosition.GetNewCoordinates(initialRobotPosition, robotPositionInMarthSurface, SurfaceDimensions.MinimumYAxis);
+                            var manageRobot =
+                                nextPosition.GetNewCoordinates(initialRobotPosition, robotPositionInMarthSurface, SurfaceDimensions.MinimumYAxis, poisonCoordinates);
                             newCoordinates = manageRobot.nextRobotPosition;
                             stopTheRobot = manageRobot.isLost;
+                            poisonCoordinates = manageRobot.getPoisonCoordinates;
                         }
-
+                        
                         actualPosition = newCoordinates;
 
                         break;
@@ -188,38 +196,38 @@ namespace GuideSmiths.Robots.Application.Surface
                 Console.SetCursorPosition(newCoordinates.XPosition, newCoordinates.YPosition);
 
 
-                foreach (var poisonUbication in poisonCoordinates)
-                {
-                    if ((robotPositionInMarthSurface.XPosition == poisonUbication.XPosition &&
-                        robotPositionInMarthSurface.YPosition == poisonUbication.YPosition)  
-                        )
-                    {
-                        stopTheRobot = true;
-                        Console.SetCursorPosition(5, 20);
-                        Console.WriteLine($"Poisoned UBICATION!!:");
-                        //Console.WriteLine($"--------");
-                        //Console.WriteLine($"X: {poisonUbication.XPosition}, Y: {poisonUbication.YPosition} ");
-                        //Thread.Sleep(3000);
-                        //Console.WriteLine($"Last robot Ubication and Orientation");
-                        //Console.WriteLine($"--------");
-                        //Console.WriteLine($"X: {robotPositionInMarthSurface.XPosition}," +
-                        //$" Y: {robotPositionInMarthSurface.YPosition}, Orientation: {currentOrientation}");
-                        Thread.Sleep(3000);
-                        break;
-                    }
-                }
+                //foreach (var poisonUbication in poisonCoordinates)
+                //{
+                //    if ((robotPositionInMarthSurface.XPosition == poisonUbication.XPosition &&
+                //        robotPositionInMarthSurface.YPosition == poisonUbication.YPosition)  
+                //        )
+                //    {
+                //        stopTheRobot = true;
+                //        Console.SetCursorPosition(5, 20);
+                //        Console.WriteLine($"Poisoned UBICATION!!:");
+                //        //Console.WriteLine($"--------");
+                //        //Console.WriteLine($"X: {poisonUbication.XPosition}, Y: {poisonUbication.YPosition} ");
+                //        //Thread.Sleep(3000);
+                //        //Console.WriteLine($"Last robot Ubication and Orientation");
+                //        //Console.WriteLine($"--------");
+                //        //Console.WriteLine($"X: {robotPositionInMarthSurface.XPosition}," +
+                //        //$" Y: {robotPositionInMarthSurface.YPosition}, Orientation: {currentOrientation}");
+                //        Thread.Sleep(3000);
+                //        break;
+                //    }
+                //}
                  
-                if ((robotPositionInMarthSurface.XPosition > SurfaceDimensions.MaximunXAxis ||
-                 robotPositionInMarthSurface.YPosition > SurfaceDimensions.MaximunYAxis ||
-                 robotPositionInMarthSurface.XPosition < SurfaceDimensions.MinimumXAxis ||
-                 robotPositionInMarthSurface.YPosition < SurfaceDimensions.MinimumYAxis) && (stopTheRobot == false)
-                 )
+                //if ((robotPositionInMarthSurface.XPosition > SurfaceDimensions.MaximunXAxis ||
+                // robotPositionInMarthSurface.YPosition > SurfaceDimensions.MaximunYAxis ||
+                // robotPositionInMarthSurface.XPosition < SurfaceDimensions.MinimumXAxis ||
+                // robotPositionInMarthSurface.YPosition < SurfaceDimensions.MinimumYAxis) &&
+                if(stopTheRobot == true)                 
                 {
-                    stopTheRobot = true;
+                    //stopTheRobot = true;
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("X");
                     Console.ResetColor();
-                    poisonCoordinates.Add(robotPositionInMarthSurface);
+                    //poisonCoordinates.Add(robotPositionInMarthSurface);
 
                     Console.SetCursorPosition(previousRobotPosition.XPosition, previousRobotPosition.YPosition);
                     Console.Write(" ");
@@ -227,7 +235,7 @@ namespace GuideSmiths.Robots.Application.Surface
                     Console.SetCursorPosition(5, 20);
                     Console.WriteLine($"X: {previousRobotPositionInMarthSurface.XPosition}," +
                       $" Y: {previousRobotPositionInMarthSurface.YPosition}, Orientation: {robotState.orientation} LOST !");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(3000);
                     break;
                 }                
 
@@ -247,7 +255,7 @@ namespace GuideSmiths.Robots.Application.Surface
                         Console.Write(" ");
                     }
 
-                    Thread.Sleep(1000);
+                    Thread.Sleep(300);
                 }
                  
             }
