@@ -195,39 +195,11 @@ namespace GuideSmiths.Robots.Application.Surface
 
                 Console.SetCursorPosition(newCoordinates.XPosition, newCoordinates.YPosition);
 
-
-                //foreach (var poisonUbication in poisonCoordinates)
-                //{
-                //    if ((robotPositionInMarthSurface.XPosition == poisonUbication.XPosition &&
-                //        robotPositionInMarthSurface.YPosition == poisonUbication.YPosition)  
-                //        )
-                //    {
-                //        stopTheRobot = true;
-                //        Console.SetCursorPosition(5, 20);
-                //        Console.WriteLine($"Poisoned UBICATION!!:");
-                //        //Console.WriteLine($"--------");
-                //        //Console.WriteLine($"X: {poisonUbication.XPosition}, Y: {poisonUbication.YPosition} ");
-                //        //Thread.Sleep(3000);
-                //        //Console.WriteLine($"Last robot Ubication and Orientation");
-                //        //Console.WriteLine($"--------");
-                //        //Console.WriteLine($"X: {robotPositionInMarthSurface.XPosition}," +
-                //        //$" Y: {robotPositionInMarthSurface.YPosition}, Orientation: {currentOrientation}");
-                //        Thread.Sleep(3000);
-                //        break;
-                //    }
-                //}
-                 
-                //if ((robotPositionInMarthSurface.XPosition > SurfaceDimensions.MaximunXAxis ||
-                // robotPositionInMarthSurface.YPosition > SurfaceDimensions.MaximunYAxis ||
-                // robotPositionInMarthSurface.XPosition < SurfaceDimensions.MinimumXAxis ||
-                // robotPositionInMarthSurface.YPosition < SurfaceDimensions.MinimumYAxis) &&
                 if(stopTheRobot == true)                 
                 {
-                    //stopTheRobot = true;
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("X");
                     Console.ResetColor();
-                    //poisonCoordinates.Add(robotPositionInMarthSurface);
 
                     Console.SetCursorPosition(previousRobotPosition.XPosition, previousRobotPosition.YPosition);
                     Console.Write(" ");

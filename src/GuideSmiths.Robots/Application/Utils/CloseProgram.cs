@@ -16,7 +16,7 @@ namespace GuideSmiths.Robots.Application.Utils
                 {
                     var parentId = (uint)queryObj["ParentProcessId"];
                     var parent = Process.GetProcessById((int)parentId);
-                    // Code...       
+
                     if (parent.ProcessName == "cmd")
                         parent.CloseMainWindow();
 
