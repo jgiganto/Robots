@@ -5,7 +5,7 @@ namespace GuideSmiths.Robots.Application.Robot.Services
 {
     public class MoveEast : MoveRobotForward
     {
-        public override (Coordinates nextRobotPosition, bool isLost, List<Coordinates> getPoisonCoordinates)
+        public override (Coordinates nextRobotPosition, bool isLost, List<Coordinates> getPoisonCoordinates, Coordinates getcoordinatesInMarthSurface)
             GetNewCoordinates(Coordinates nextRobotPosition, Coordinates coordinatesInMarthSurface, int eastLimits, List<Coordinates> poisonCoordinates)
         {
             bool isLost = false;
@@ -31,11 +31,11 @@ namespace GuideSmiths.Robots.Application.Robot.Services
                     poisonedCoordinates.YPosition = coordinatesInMarthSurface.YPosition;
                     poisonCoordinates.Add(poisonedCoordinates);
                     isLost = true;
-                    return (nextRobotPosition, isLost, poisonCoordinates);
+                    return (nextRobotPosition, isLost, poisonCoordinates, coordinatesInMarthSurface);
                 }
             }                
 
-            return (nextRobotPosition, isLost, poisonCoordinates);
+            return (nextRobotPosition, isLost, poisonCoordinates, coordinatesInMarthSurface);
         }
     }
 }
