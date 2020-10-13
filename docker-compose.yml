@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+    robotprogram:
+        ports:
+            - 5000:3000
+        image: guide-smiths-robots
+        container_name: guide-smiths-robots
+        stdin_open: true
+        tty: true
+        build:
+            context: .
+            dockerfile: ./src/GuideSmiths.Robots/Dockerfile
