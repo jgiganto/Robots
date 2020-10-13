@@ -29,9 +29,7 @@ namespace GuideSmiths.Robots
             Console.ResetColor();
             Thread.Sleep(50);
 
-
             surfaceDimensions = questionary.DefineSurface();
-
 
             while (exit != "E")
             {

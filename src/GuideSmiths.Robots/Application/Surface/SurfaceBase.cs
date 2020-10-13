@@ -1,8 +1,4 @@
-﻿    using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GuideSmiths.Robots.Application.Surface
+﻿namespace GuideSmiths.Robots.Application.Surface
 {
     public class SurfaceBase
     {        

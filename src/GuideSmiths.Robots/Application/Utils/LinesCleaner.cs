@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace GuideSmiths.Robots.Application.Utils
 {
-    public class Line
+    public class LinesCleaner
     {
         public static void Clean()
         {
