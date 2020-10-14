@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+    robotprogram:
+        ports:
+            - 5000:3000
+        image: guide-smiths-robots
+        container_name: guide-smiths-robots
+        stdin_open: true
+        tty: true
+        volumes:
+            - C:\Users\jesus.giganto\Desktop\Loreal\LOREAL\BBDD\Database:/var/opt/mssql/data
+        build:
+            context: .
+            dockerfile: ./src/GuideSmiths.Robots/Dockerfile       
+volumes:
+    app-volume:
