@@ -7,8 +7,8 @@ namespace GuideSmiths.Robots.Application.Robot.Contracts
     {
         public abstract class MoveRobotForward
         {
-            public abstract (Coordinates nextRobotPosition, bool isLost, List<Coordinates> getPoisonCoordinates, Coordinates getcoordinatesInMarthSurface)
-                GetNewCoordinates(Coordinates nextRobotPosition, Coordinates coordinatesInMarthSurface, int limits, List<Coordinates> poisonCoordinates);
+            public abstract (Coordinates nextRobotPosition, bool isLost, List<Coordinates> getDangerCoordinates, Coordinates getcoordinatesInMarthSurface)
+                GetNewCoordinates(Coordinates nextRobotPosition, Coordinates coordinatesInMarthSurface, int limits, List<Coordinates> dangerCoordinates);
         } 
 
         public string Instructions { get; set; }

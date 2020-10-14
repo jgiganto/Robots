@@ -4,7 +4,7 @@ using System.Management;
 
 namespace GuideSmiths.Robots.Application.Utils
 {
-    public class  CloseProgram
+    public class CloseProgram
     {
         public static void Close()
         {

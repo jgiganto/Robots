@@ -4,9 +4,9 @@ namespace GuideSmiths.Robots.Application.Robot.Services
 {
     public class AnalizePosition
     {
-        public static bool IsDangerPosition(Coordinates nextPosition, List<Coordinates> poisonCoordinates)
+        public static bool IsDangerPosition(Coordinates nextPosition, List<Coordinates> dangerCoordinates)
         {
-            foreach(var position in poisonCoordinates)
+            foreach(var position in dangerCoordinates)
             {
                 if(nextPosition.XPosition == position.XPosition &&
                    nextPosition.YPosition == position.YPosition)

@@ -20,10 +20,10 @@ namespace GuideSmiths.Robots
             Console.Title = "rOBOt";
             Console.OutputEncoding = System.Text.Encoding.Unicode;
             Console.ForegroundColor = ConsoleColor.Green;
-            PaintSurface paintSurface = new PaintSurface();
+            DrawGame paintSurface = new DrawGame();
             SurfaceBase surfaceDimensions = new SurfaceBase();
             Questionaries questionary = new Questionaries();
-            List<Coordinates> poisonCoordinates = new List<Coordinates>();
+            List<Coordinates> dangerCoordinates = new List<Coordinates>();
 
             Console.WriteLine(Tittle.MartianRobot);
             Console.ResetColor();
@@ -33,7 +33,8 @@ namespace GuideSmiths.Robots
 
             while (exit != "E")
             {
-                paintSurface.Paint(surfaceDimensions, poisonCoordinates);
+
+                paintSurface.Paint(surfaceDimensions, dangerCoordinates, null, null, null);
 
                 Console.SetCursorPosition(5, 24);
                 Console.WriteLine("Enter to continue. For Exit type `E`:");
@@ -41,11 +42,11 @@ namespace GuideSmiths.Robots
                 Console.Clear();
             }
 
-            Console.WriteLine($"Poisoned:");
+            Console.WriteLine($"Danger coordinates:");
             Console.WriteLine($"--------");
-            foreach (var poisonUbication in poisonCoordinates)
+            foreach (var dangerUbication in dangerCoordinates)
             {
-                Console.WriteLine($"X: {poisonUbication.XPosition}, Y: {poisonUbication.YPosition} ");
+                Console.WriteLine($"X: {dangerUbication.XPosition}, Y: {dangerUbication.YPosition} ");
             }
 
             Thread.Sleep(6000);
