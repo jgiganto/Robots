@@ -5,7 +5,7 @@ namespace GuideSmiths.Robots.Application.Robot
     public class Orientation
     {
         public string robotE = "►";
-        public string robotN = "▲";
+        public string robotN = "▲"; 
         public string robotW = "◄";
         public string robotS = "▼";
 
