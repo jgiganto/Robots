@@ -7,7 +7,7 @@ I have tried to organize the files in a clean architecture placing the entities 
 - Domain: 
   Modeling the entities. 
 
-- Infraestructure or representation layer: 
+- Infrastructure or representation layer: 
   Used to have a interactive experience . 
 
 # Docker 
