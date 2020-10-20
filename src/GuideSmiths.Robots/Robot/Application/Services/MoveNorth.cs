@@ -5,17 +5,17 @@ namespace GuideSmiths.Robots.Application.Robot.Services
 {
     public class MoveNorth : MoveRobotForward
     {
-        public override (Coordinates nextRobotPosition, bool isLost, List<Coordinates> getPoisonCoordinates, Coordinates getcoordinatesInMarthSurface)
-            GetNewCoordinates(Coordinates nextRobotPosition, Coordinates coordinatesInMarthSurface, int northLimits, List<Coordinates> poisonCoordinates)
+        public override (Coordinates nextRobotPosition, bool isLost, List<Coordinates> getDangerCoordinates, Coordinates getcoordinatesInMarthSurface)
+            GetNewCoordinates(Coordinates nextRobotPosition, Coordinates coordinatesInMarthSurface, int northLimits, List<Coordinates> dangerCoordinates)
         {
             bool isLost = false;
             bool ignoreCommand = false;
             Coordinates coordinatesToAnalize = new Coordinates();
-            Coordinates poisonedCoordinates = new Coordinates();
+            Coordinates dangeredCoordinates = new Coordinates();
             coordinatesToAnalize.YPosition = coordinatesInMarthSurface.YPosition + 1;
             coordinatesToAnalize.XPosition = coordinatesInMarthSurface.XPosition;
            
-            ignoreCommand = AnalizePosition.IsDangerPosition(coordinatesToAnalize, poisonCoordinates);
+            ignoreCommand = AnalizePosition.IsDangerPosition(coordinatesToAnalize, dangerCoordinates);
 
             if (!ignoreCommand)
             {
@@ -27,15 +27,15 @@ namespace GuideSmiths.Robots.Application.Robot.Services
                 }
                 else
                 {
-                    poisonedCoordinates.YPosition = coordinatesInMarthSurface.YPosition + 1;
-                    poisonedCoordinates.XPosition = coordinatesInMarthSurface.XPosition;
-                    poisonCoordinates.Add(poisonedCoordinates);
+                    dangeredCoordinates.YPosition = coordinatesInMarthSurface.YPosition + 1;
+                    dangeredCoordinates.XPosition = coordinatesInMarthSurface.XPosition;
+                    dangerCoordinates.Add(dangeredCoordinates);
                     isLost = true;
-                    return (nextRobotPosition, isLost, poisonCoordinates, coordinatesInMarthSurface);
+                    return (nextRobotPosition, isLost, dangerCoordinates, coordinatesInMarthSurface);
                 }
             }
 
-            return (nextRobotPosition, isLost, poisonCoordinates, coordinatesInMarthSurface); 
+            return (nextRobotPosition, isLost, dangerCoordinates, coordinatesInMarthSurface); 
         }
     }
 }

@@ -3,6 +3,7 @@ using FluentValidation.Results;
 using GuideSmiths.Robots.Application.Robot;
 using GuideSmiths.Robots.Application.Robot.Contracts;
 using GuideSmiths.Robots.Application.Utils;
+using GuideSmiths.Robots.Robot.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,14 +27,17 @@ namespace GuideSmiths.Robots.Application.Surface
             return surfaceDimensions;
         }      
         
-        public (Coordinates robotPositionInMarthSurface, Coordinates initialRobotPosition, string instructions) RobotPositionAndCommands()
+        //public (Coordinates robotPositionInMarthSurface, Coordinates initialRobotPositionOnScreen, string instructions) RobotPositionAndCommands()
+        public RobotInitial RobotPositionAndCommands()
         {
             CoordinatesValidator coordinatesValidator = new CoordinatesValidator();
             MotionValidator motionValidator = new MotionValidator();
             Console.CursorVisible = true;
-            Coordinates initialRobotPosition = new Coordinates();
+            Coordinates initialRobotPositionOnScreen = new Coordinates();
             Coordinates robotPositionInMarthSurface = new Coordinates();
             Motion commands = new Motion();
+
+            RobotInitial robotInitial = new RobotInitial();
 
             Console.WriteLine("Now, initial coordinates of the robot and It´s orientation (N, S, E, W): ");
             LinesCleaner.BlankLine();
@@ -49,10 +53,12 @@ namespace GuideSmiths.Robots.Application.Surface
                 {
                     LinesCleaner.BlankLine();
                     Console.Write("Enter the X: ");
-                    robotPositionInMarthSurface.XPosition = Convert.ToInt32(Console.ReadLine());
+                    //robotPositionInMarthSurface.XPosition = Convert.ToInt32(Console.ReadLine());
+                    robotInitial.RobotPositionInMarthSurface.XPosition = 9;
+                    robotInitial.RobotPositionInMarthSurface.XPosition = Convert.ToInt32(Console.ReadLine());
                     LinesCleaner.Clean();
                     Console.Write("Enter the Y: ");
-                    robotPositionInMarthSurface.YPosition = Convert.ToInt32(Console.ReadLine());
+                    robotInitial.RobotPositionInMarthSurface.YPosition = Convert.ToInt32(Console.ReadLine());
                     LinesCleaner.Clean();
                     break;
                 }
@@ -74,12 +80,13 @@ namespace GuideSmiths.Robots.Application.Surface
                 try
                 {
                     Console.Write("Enter the Orientation of Robot(N, S, E, W): ");
-                    initialRobotPosition.Orientation = Console.ReadLine().ToUpper();
+                    //initialRobotPositionOnScreen.Orientation = Console.ReadLine().ToUpper();
+                    robotInitial.InitialRobotPositionOnScreen.Orientation = Console.ReadLine().ToUpper();
                     LinesCleaner.Clean();
                     Console.SetCursorPosition(left, top);
 
                     IList<ValidationFailure> orientationErrors =
-                        coordinatesValidator.Validate(initialRobotPosition, options => options.IncludeProperties("Orientation")).Errors;
+                        coordinatesValidator.Validate(robotInitial.InitialRobotPositionOnScreen, options => options.IncludeProperties("Orientation")).Errors;
                     if (orientationErrors.Any())
                     {
                         foreach (var error in orientationErrors)
@@ -113,6 +120,7 @@ namespace GuideSmiths.Robots.Application.Surface
                 {
                     Console.Write("Give the instructions for the Robot (L/R/F): ");                  
                     commands.Instructions = Console.ReadLine().ToUpper();
+                    robotInitial.Instructions = commands.Instructions;
                     LinesCleaner.Clean();
                     Console.SetCursorPosition(left, top);
 
@@ -145,7 +153,7 @@ namespace GuideSmiths.Robots.Application.Surface
 
             Thread.Sleep(10);
             Console.CursorVisible = false;
-            return (robotPositionInMarthSurface, initialRobotPosition, commands.Instructions);
+            return robotInitial;
         }
     }
 }
