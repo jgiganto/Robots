@@ -1,14 +1,13 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using GuideSmiths.Robots.Application.Robot;
-using GuideSmiths.Robots.Application.Robot.Contracts;
 using GuideSmiths.Robots.Application.Utils;
 using GuideSmiths.Robots.Robot.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using static GuideSmiths.Robots.Application.Robot.Contracts.Motion;
+using static GuideSmiths.Robots.Robot.Domain.MotionModel;
 
 namespace GuideSmiths.Robots.Application.Surface
 {
@@ -27,7 +26,6 @@ namespace GuideSmiths.Robots.Application.Surface
             return surfaceDimensions;
         }      
         
-        //public (Coordinates robotPositionInMarthSurface, Coordinates initialRobotPositionOnScreen, string instructions) RobotPositionAndCommands()
         public RobotInitial RobotPositionAndCommands()
         {
             CoordinatesValidator coordinatesValidator = new CoordinatesValidator();
@@ -35,7 +33,7 @@ namespace GuideSmiths.Robots.Application.Surface
             Console.CursorVisible = true;
             Coordinates initialRobotPositionOnScreen = new Coordinates();
             Coordinates robotPositionInMarthSurface = new Coordinates();
-            Motion commands = new Motion();
+            MotionModel commands = new MotionModel();
 
             RobotInitial robotInitial = new RobotInitial();
 
@@ -53,7 +51,6 @@ namespace GuideSmiths.Robots.Application.Surface
                 {
                     LinesCleaner.BlankLine();
                     Console.Write("Enter the X: ");
-                    //robotPositionInMarthSurface.XPosition = Convert.ToInt32(Console.ReadLine());
                     robotInitial.RobotPositionInMarthSurface.XPosition = 9;
                     robotInitial.RobotPositionInMarthSurface.XPosition = Convert.ToInt32(Console.ReadLine());
                     LinesCleaner.Clean();
@@ -80,7 +77,6 @@ namespace GuideSmiths.Robots.Application.Surface
                 try
                 {
                     Console.Write("Enter the Orientation of Robot(N, S, E, W): ");
-                    //initialRobotPositionOnScreen.Orientation = Console.ReadLine().ToUpper();
                     robotInitial.InitialRobotPositionOnScreen.Orientation = Console.ReadLine().ToUpper();
                     LinesCleaner.Clean();
                     Console.SetCursorPosition(left, top);
