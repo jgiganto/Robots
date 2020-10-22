@@ -1,5 +1,5 @@
 # Martian robots
-My solution is implemented in a NetCore 3.1 Console App. and some funtional test over It´s principal methods using the given examples, also a graphical animation of the robot over the Martian surface using a givens parameters. 
+My solution it was implemented in a NetCore 3.1 Console App. and some funtional test over It´s principal methods using the given examples, also a graphical animation of the robot over the Martian surface using a givens parameters. 
 I have tried to organize the files in a clean architecture placing the entities in diferent folders and within these dividing by layers: 
 - Application:
   The bussiness logic layer. 
